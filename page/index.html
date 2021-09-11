@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        background-color: rgb(255, 255, 255);
+        text-align: center;
+      }
+
+      p {
+        width: 50%;
+        height: auto;
+        margin: auto;
+      }
+
+      canvas {
+        max-width: 400px;
+        height: auto;
+        margin: auto;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Real Time Monitor</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Real Time Motion Dectector</h1>
+      <p>
+        This is an app that allows me to see the motion happening around my
+        house. With this app I can record when there is movement and store that
+        in a database which I can graph to show the movement throughout the
+        days. This is also the base for many other projects that will allow
+        remote interaction with physical hardware. For example, we can replace
+        the motion sensor with any other type of sensor, motor, camera or any
+        combination of these which would allow us to gather more useful data.
+      </p>
+    </header>
+
+    <main>
+      <h2>Real Time Graph</h2>
+      <ul id="messages"></ul>
+      <div class="realTimeGraph">
+        <canvas id="realtimeGraph" width="400" height="400"></canvas>
+      </div>
+      
+      <p>
+        The graph above allows you to see the movement happening at this very
+        moment outside of my house. At the moment it records any type of
+        movement, it could be a person, cars or even animals.
+      </p>
+
+      <h2>Events per Day</h2>
+      <div class="eventsPerDayGraph">
+        <canvas id="eventsPerDay" width="400" height="400"></canvas>;
+      </div>
+      
+      <p>
+        This graph shows how many events there are on a certain day. This data
+        has been continously recorded since 'Some date I need to change' It
+        helps us to see which days of the week have the most movement.
+      </p>
+
+      <h2>Events per Hour</h2>
+      <div class="eventsPerHourGraph">
+        <canvas id="eventsPerHour" width="400" height="400"></canvas>;
+      </div>
+      
+      <p>
+        This graph is similar to the previous graph except here we see events
+        per hour. This allows us to see the busiest time of the day.
+      </p>
+
+      <h2>Statistics</h2>
+      <div class="statisticsGraph">
+        <canvas id="statistics" width="400" height="400"></canvas>;
+      </div>
+      
+      <p>
+        This is a summary of the events since the app was online. It's an
+        average of the busiest day of the week as well as an average of the
+        busiest hour in the day. Once I have more data I will expand the graph
+        options to show the data throughout the month.
+      </p>
+    </main>
+
+    <footer>
+      <h2>Contact Information</h2>
+      <ul>
+        <li><strong>Name:</strong></li>
+        <li><strong>email:</strong></li>
+        <li><strong>GitHub:</strong></li>
+      </ul>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+
+      var socket = io();
+
+      var messages = document.getElementById("messages");
+      var form = document.getElementById("form");
+      var input = document.getElementById("input");
+
+      socket.emit("data");
+      // form.addEventListener("submit", function (e) {
+      //   e.preventDefault();
+      //   if (input.value) {
+      //     socket.emit("chat message", input.value);
+      //     input.value = "";
+      //   }
+      // });
+      
+      let counter = 0;
+      socket.on("data",  (event) => {
+        // var item = document.createElement("li");
+        // item.textContent = data;
+        // messages.appendChild(item);
+        // window.scrollTo(0, document.body.scrollHeight);
+        
+        myChart.data.datasets.forEach( item => {
+          item.data.push(parseInt(event));
+        });
+        
+        myChart.data.labels.push(counter);
+        counter++;
+
+        myChart.update();
+      });
+
+      var ctx = document.getElementById("realtimeGraph").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "# motions",
+              data: [],
+              backgroundColor: [
+        
+                "rgba(255, 206, 86)"
+                
+              ],
+              borderColor: [
+                
+                "rgba(30, 30, 200)"
+              
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 3
+            },
+          },
+        },
+      });
+
+
+      // trynna get the date from db and display it
+      
+
+
+    </script>
+  </body>
+</html>

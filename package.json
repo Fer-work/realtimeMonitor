@@ -1,0 +1,22 @@
+{
+  "name": "node_arduino_chart.js_serialport",
+  "version": "1.0.0",
+  "description": "collect data from arduino, parse through js and post to database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fernando Sanchez Gutierrez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "serialport": "^9.2.1",
+    "socket.io": "^4.2.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
