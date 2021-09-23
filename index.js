@@ -61,7 +61,6 @@ http.listen(port, () => {
 //   console.log(humanDate);
 //   io.emit("data", humanDate);
 // });
-
 app.get("/motion", db.getData);
 // http.get("/motion/:id", db.getDataById);
 // http.post("/motion", db.createData);

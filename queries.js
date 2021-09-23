@@ -17,26 +17,29 @@ const addData = (data) => {
   pool.query(
     "INSERT INTO motion VALUES (default, $1, default, default)",
     [data],
-    (error, response) => {
+    (error, result) => {
       if (!error) {
-        console.log(response.rows);
+        console.log(result.rows);
       } else {
         console.log(error.message);
       }
-      pool.end;
     }
   );
+  pool.end;
 };
 
-const getData = (res, req) => {
+const date = [];
+const events = [];
+const getData = (request, response) => {
   pool.query(
-    "SELECT COUNT(event) FROM motion WHERE date = '2021-09-10",
+    "SELECT date, COUNT(event) AS events FROM motion BETWEEN GROUP BY date",
     (error, results) => {
       if (error) {
         throw error;
-      } else {
-        response.status(200).json(results.rows);
       }
+      response.status(200).json(results.rows);
+      date = response.json(results.rows);
+      console.log(date);
     }
   );
 };
