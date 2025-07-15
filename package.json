@@ -1,5 +1,5 @@
 {
-  "name": "node_arduino_chart.js_serialport",
+  "name": "dragon-lair-dashboard",
   "version": "1.0.0",
   "description": "collect data from arduino, parse through js and post to database",
   "main": "index.js",
@@ -18,5 +18,13 @@
   },
   "devDependencies": {
     "sequelize-cli": "^6.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fer-work/realtimeMonitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fer-work/realtimeMonitor/issues"
+  },
+  "homepage": "https://github.com/Fer-work/realtimeMonitor#readme"
 }

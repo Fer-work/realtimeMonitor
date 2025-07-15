@@ -46,7 +46,7 @@
       <div class="realTimeGraph">
         <canvas id="realtimeGraph" width="400" height="400"></canvas>
       </div>
-      
+
       <p>
         The graph above allows you to see the movement happening at this very
         moment outside of my house. At the moment it records any type of
@@ -54,13 +54,11 @@
       </p>
 
       <h2>Events per Day</h2>
-      <script>
-        
-      </script>
+      <script></script>
       <div class="eventsPerDayGraph">
         <canvas id="eventsPerDay" width="400" height="400"></canvas>;
       </div>
-      
+
       <p>
         This graph shows how many events there are on a certain day. This data
         has been continously recorded since 'Some date I need to change' It
@@ -71,7 +69,7 @@
       <div class="eventsPerHourGraph">
         <canvas id="eventsPerHour" width="400" height="400"></canvas>;
       </div>
-      
+
       <p>
         This graph is similar to the previous graph except here we see events
         per hour. This allows us to see the busiest time of the day.
@@ -81,7 +79,7 @@
       <div class="statisticsGraph">
         <canvas id="statistics" width="400" height="400"></canvas>;
       </div>
-      
+
       <p>
         This is a summary of the events since the app was online. It's an
         average of the busiest day of the week as well as an average of the
@@ -100,9 +98,8 @@
     </footer>
 
     <script src="/socket.io/socket.io.js"></script>
-    
-    <script>
 
+    <script>
       var socket = io();
 
       var messages = document.getElementById("messages");
@@ -117,18 +114,18 @@
       //     input.value = "";
       //   }
       // });
-      
+
       let counter = 0;
-      socket.on("data",  (event) => {
+      socket.on("data", (event) => {
         // var item = document.createElement("li");
         // item.textContent = data;
         // messages.appendChild(item);
         // window.scrollTo(0, document.body.scrollHeight);
-        
-        myChart.data.datasets.forEach( item => {
+
+        myChart.data.datasets.forEach((item) => {
           item.data.push(parseInt(event));
         });
-        
+
         myChart.data.labels.push(counter);
         counter++;
 
@@ -144,16 +141,8 @@
             {
               label: "# motions",
               data: [],
-              backgroundColor: [
-        
-                "rgba(255, 206, 86)"
-                
-              ],
-              borderColor: [
-                
-                "rgba(30, 30, 200)"
-              
-              ],
+              backgroundColor: ["rgba(255, 206, 86)"],
+              borderColor: ["rgba(30, 30, 200)"],
               borderWidth: 1,
             },
           ],
@@ -162,17 +151,13 @@
           scales: {
             y: {
               beginAtZero: true,
-              max: 3
+              max: 3,
             },
           },
         },
       });
 
-
       // trynna get the date from db and display it
-      
-
-
     </script>
   </body>
 </html>
